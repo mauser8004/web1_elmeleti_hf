@@ -128,6 +128,16 @@
 
     document.addEventListener("DOMContentLoaded", renderTable);
 /////////////////CRUD vege
+/////web worker API
+function bigLoop(){
+  for (var i = 0; i <= 100000; i += 1)
+  var j = i;
+  alert("Kész " + j + "ciklus" );
+  }
+  function sayHello(){
+  alert("Szép Napot!" );
+  }
+//web worker API vége
 //DRAG DROP API
 
 function dragstartHandler(ev) {
@@ -144,6 +154,18 @@ function dropHandler(ev) {
   ev.target.appendChild(document.getElementById(data));
 }
 ////GRAD DROP VEGE
+////cansas
+function cansas(){
+const c = document.getElementById("myCanvas");
+const ctx = c.getContext("2d");
+ctx.beginPath();
+ctx.moveTo(20, 20);
+ctx.lineTo(20, 100);
+ctx.lineTo(70, 100);
+ctx.strokeStyle = "red";
+ctx.stroke();
+}
+////cansas vege
 //GEO loc API
 const x = document.getElementById("demo");
 
