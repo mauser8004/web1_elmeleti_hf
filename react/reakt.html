@@ -1,0 +1,108 @@
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+
+function App() {
+  return (
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li><Link to="/torpedo">Torpedó</Link></li>
+            <li><Link to="/memory-game">Memóriajáték</Link></li>
+          </ul>
+        </nav>
+        <Routes>
+          <Route path="/torpedo" element={<Torpedo />} />
+          <Route path="/memory-game" element={<MemoryGame />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+// Torpedo Component
+function Torpedo() {
+  const gridSize = 5;
+  const [grid, setGrid] = useState(
+    Array(gridSize).fill(null).map(() => Array(gridSize).fill("~"))
+  );
+  const [message, setMessage] = useState("Lőjj egyet!");
+  const shipPosition = { row: Math.floor(Math.random() * gridSize), col: Math.floor(Math.random() * gridSize) };
+
+  const handleShot = (row, col) => {
+    if (row === shipPosition.row && col === shipPosition.col) {
+      setMessage("Talált! Süllyedt!");
+      setGrid(grid.map((r, ri) => r.map((c, ci) => (ri === row && ci === col ? "X" : c))));
+    } else {
+      setMessage("Mellé! Próbáld újra.");
+      setGrid(grid.map((r, ri) => r.map((c, ci) => (ri === row && ci === col ? "O" : c))));
+    }
+  };
+
+  return (
+    <div>
+      <h2>Torpedó Játék</h2>
+      <p>{message}</p>
+      <div style={{ display: "grid", gridTemplateColumns: `repeat(${gridSize}, 50px)`, gap: "5px" }}>
+        {grid.map((row, rowIndex) =>
+          row.map((cell, colIndex) => (
+            <button
+              key={`${rowIndex}-${colIndex}`}
+              onClick={() => handleShot(rowIndex, colIndex)}
+              style={{ width: "50px", height: "50px" }}
+            >
+              {cell}
+            </button>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Memory Game Component
+function MemoryGame() {
+  const cards = ["🐱", "🐶", "🐰", "🐹", "🦊", "🐱", "🐶", "🐰", "🐹", "🦊"];
+  const shuffledCards = [...cards].sort(() => Math.random() - 0.5);
+  const [revealed, setRevealed] = useState(Array(cards.length).fill(false));
+  const [selected, setSelected] = useState([]);
+
+  const handleCardClick = (index) => {
+    if (revealed[index] || selected.length === 2) return;
+    
+    const newSelected = [...selected, index];
+    setSelected(newSelected);
+    
+    if (newSelected.length === 2) {
+      setTimeout(() => {
+        if (shuffledCards[newSelected[0]] === shuffledCards[newSelected[1]]) {
+          const newRevealed = [...revealed];
+          newRevealed[newSelected[0]] = true;
+          newRevealed[newSelected[1]] = true;
+          setRevealed(newRevealed);
+        }
+        setSelected([]);
+      }, 1000);
+    }
+  };
+
+  return (
+    <div>
+      <h2>Memóriajáték</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 50px)", gap: "5px" }}>
+        {shuffledCards.map((card, index) => (
+          <button
+            key={index}
+            onClick={() => handleCardClick(index)}
+            style={{ width: "50px", height: "50px", fontSize: "24px" }}
+          >
+            {revealed[index] || selected.includes(index) ? card : "❓"}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+

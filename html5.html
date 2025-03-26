@@ -1,14 +1,5 @@
     <div class="content">
         <h2>HTML5 API Példák</h2>
-        <ul>
-            <li><a href="#storage">Web Storage</a></li>
-            <li><a href="#workers">Web Workers</a></li>
-            <li><a href="#sse">Server-Sent Events</a></li>
-            <li><a href="#geo">Geolocation API</a></li>
-            <li><a href="#dragdrop">Drag and Drop API</a></li>
-            <li><a href="#canvas">Canvas</a></li>
-            <li><a href="#svg">SVG</a></li>
-        </ul>
         
         <h3 id="storage">Web Storage</h3>
         <button onclick="localStorage.setItem('test', 'Hello World!')">Tárolás</button>
@@ -29,21 +20,27 @@
         <p>Nem támogatott példaként, mert szerveroldali támogatás kell hozzá.</p>
         
         <h3 id="geo">Geolocation API</h3>
-        <button onclick="navigator.geolocation.getCurrentPosition(pos => alert(`Helyzet: ${pos.coords.latitude}, ${pos.coords.longitude}`))">Helyzet lekérése</button>
+	<p>A gombra kattinva megtudhatja a koordinátáit</p>
+
+	<button onclick="getLocation()">Koordinaták</button>
+	<!-- https://www.w3schools.com/html/html5_draganddrop.asp --> 
         
-        <h3 id="dragdrop">Drag and Drop API</h3>
-        <div id="drag" draggable="true" style="width:100px;height:100px;background:red;">Húzd</div>
-        
-        <h3 id="canvas">Canvas</h3>
-        <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000;"></canvas>
-        <script>
-            let canvas = document.getElementById("myCanvas");
-            let ctx = canvas.getContext("2d");
-            ctx.fillStyle = "blue";
-            ctx.fillRect(20, 20, 150, 75);
-        </script>
-        
-        <h3 id="svg">SVG</h3>
+
+	<h3 id="dragdrop">Drag and Drop API</h3>
+        <p>Helyezze a kis képet az egyik dobozbol a másikba</p>
+
+
+<div id="div1" ondrop="dropHandler(event)"   ondragover="dragoverHandler(event)">
+<img id="img1" src="gamf_ikon.gif" draggable="true" ondragstart="dragstartHandler(event)" width="88" height="31">
+</div>
+
+<div id="div2" ondrop="dropHandler(event)"   ondragover="dragoverHandler(event)"></div><br>
+
+
+
+
+<br>	
+        <h3 id="svg">SVG Példa</h3>
         <svg width="100" height="100">
             <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
         </svg>
