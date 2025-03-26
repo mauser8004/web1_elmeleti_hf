@@ -1,4 +1,3 @@
-    <script>
         function loadContent(page, menuItem) {
             // Betöltés a content div-be
             fetch(page)
@@ -16,4 +15,3 @@
         document.addEventListener("DOMContentLoaded", () => {
             loadContent('home.html', document.querySelector("nav ul li a"));
         });
-    </script>

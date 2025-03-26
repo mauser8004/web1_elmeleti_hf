@@ -1,4 +1,3 @@
-    <script>
     let tableData = [
         { name: "Gipsz Jakab", age: 30, city: "Budapest", email: "jakab@example.com" }
     ];
@@ -110,4 +109,3 @@
     }
 
     document.addEventListener("DOMContentLoaded", renderTable);
-</script>
