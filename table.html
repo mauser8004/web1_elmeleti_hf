@@ -1,29 +1,34 @@
-<!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web-programozás-1</title>
-    <script>
-        function loadContent(page, menuItem) {
-            // Betöltés a content div-be
-            fetch(page)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('content').innerHTML = data;
-                })
-                .catch(error => console.error('Hiba történt:', error));
+<div>
+<h2>Táblázat CRUD és JavaScript feldolgozás</h2>
 
-            // Aktív menü módosítása
-            document.querySelectorAll("nav ul li a").forEach(a => a.classList.remove("active"));
-            menuItem.classList.add("active");
-        }
+<input type="text" id="searchInput" placeholder="Keresés..." onkeyup="filterTable()">
+<button onclick="openModal()">Új sor hozzáadása</button>
 
-        document.addEventListener("DOMContentLoaded", () => {
-            loadContent('home.html', document.querySelector("nav ul li a"));
-        });
-    </script>
-    <script>
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th onclick="sortTable(0)">Név</th>
+            <th onclick="sortTable(1)">Életkor</th>
+            <th onclick="sortTable(2)">Város</th>
+            <th onclick="sortTable(3)">Email</th>
+            <th>Műveletek</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<!-- Modal ablak -->
+<div id="modal" style="display:none;">
+    <h3 id="modalTitle">Új sor hozzáadása</h3>
+    <label>Név: <input type="text" id="nameInput" required minlength="3"></label><br>
+    <label>Életkor: <input type="number" id="ageInput" required min="1" max="120"></label><br>
+    <label>Város: <input type="text" id="cityInput" required minlength="2"></label><br>
+    <label>Email: <input type="email" id="emailInput" required></label><br>
+    <button onclick="saveRow()">Mentés</button>
+    <button onclick="closeModal()">Mégse</button>
+</div>
+
+<script>
     let tableData = [
         { name: "Gipsz Jakab", age: 30, city: "Budapest", email: "jakab@example.com" }
     ];
@@ -50,7 +55,7 @@
     function openModal(index = null) {
         document.getElementById("modal").style.display = "block";
         document.getElementById("modalTitle").innerText = index !== null ? "Sor szerkesztése" : "Új sor hozzáadása";
-
+        
         if (index !== null) {
             let row = tableData[index];
             document.getElementById("nameInput").value = row.name;
@@ -136,6 +141,7 @@
 
     document.addEventListener("DOMContentLoaded", renderTable);
 </script>
+
 <style>
     table {
         width: 100%;
@@ -174,84 +180,4 @@
         margin: 5px auto;
     }
 </style>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-        }
-        nav {
-            background: #444;
-            padding: 10px;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-        }
-        nav ul li {
-            margin-right: 15px;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        nav ul li a.active {
-            background: #666;
-            border-radius: 5px;
-        }
-        aside {
-            background: #f4f4f4;
-            padding: 10px;
-            width: 20%;
-            float: left;
-        }
-        #content {
-            padding: 10px;
-            width: 75%;
-            float: right;
-        }
-        footer {
-            clear: both;
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Web-programozás-1 Előadás Házi feladat</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a onclick="loadContent('home.html', this)" class="active">Főoldal</a></li>
-            <li><a onclick="loadContent('table.html', this)">Táblázat</a></li>
-            <li><a onclick="loadContent('html5.html', this)">HTML5 Példák</a></li>
-            <li><a onclick="loadContent('chart.html', this)">ChartJS</a></li>
-        </ul>
-    </nav>
-    <aside>
-        <p>Oldalsáv tartalma</p>
-    </aside>
-    <div id="content">
-        <!-- Ide töltődik be a tartalom -->
-    </div>
-    <footer>
-        <p>Készítette: Név - Neptun kód</p>
-    </footer>
-</body>
-</html>
-
+</div>
