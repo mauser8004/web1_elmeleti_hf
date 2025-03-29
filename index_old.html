@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web-programozás-1</title>
+     <script src="index_html.js"></script> 
+    
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+        cursor: pointer;
+    }
+    th {
+        background: #666;
+        color: white;
+    }
+    th:hover {
+        background: #555;
+    }
+    input {
+        margin: 5px;
+        padding: 5px;
+    }
+    #modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        box-shadow: 0px 0px 10px gray;
+        text-align: center;
+    }
+    #modal input {
+        display: block;
+        margin: 5px auto;
+    }
+</style>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        nav {
+            background: #444;
+            padding: 10px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-right: 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        nav ul li a.active {
+            background: #666;
+            border-radius: 5px;
+        }
+        aside {
+            background: #f4f4f4;
+            padding: 10px;
+            width: 20%;
+            float: left;
+        }
+        #content {
+            padding: 10px;
+            width: 75%;
+            float: right;
+        }
+        footer {
+            clear: both;
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+<style>
+#div1, #div2 {
+  float: left;
+  width: 100px;
+  height: 35px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+}
+</style>
+</head>
+<body>
+    <header>
+        <h1>Web-programozás-1 Előadás Házi feladat</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a onclick="loadContent('home.html', this)" class="active">Főoldal</a></li>
+            <li><a onclick="loadContent('table.html', this)">Táblázat</a></li>
+            <li><a onclick="loadContent('html5.html', this)">HTML5 Példák</a></li>
+            <li><a onclick="loadContent('chart.html', this)">ChartJS</a></li>
+            <li><a onclick="loadContent('oojs.html', this)">OOJS</a></li> 
+        </ul>
+    </nav>
+    <aside>
+        <p>Oldalsáv tartalma</p>
+    </aside>
+    <div id="content">
+        <!-- Ide töltődik be a tartalom -->
+    </div>
+    <footer>
+        <p>Készítette: Név - Neptun kód</p>
+    </footer>
+</body>
+</html>
+
+

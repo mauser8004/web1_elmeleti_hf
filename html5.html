@@ -44,7 +44,20 @@
 
 <h3 id="cansas">Cansas API</h3>
 <p>Megkéne jelenie egy piros vonalnak a téglalapban </p>
-<canvas id="myCanvas" width="300" height="150" style="border:1px solid grey" onload="cansas();"></canvas>
+<canvas id="myCanvas" width="300" height="150" style="border:1px solid grey" onload="cansas();">
+	<script>
+function cansas(){
+const c = document.getElementById("myCanvas");
+const ctx = c.getContext("2d");
+ctx.beginPath();
+ctx.moveTo(20, 20);
+ctx.lineTo(20, 100);
+ctx.lineTo(70, 100);
+ctx.strokeStyle = "red";
+ctx.stroke();
+}
+	</script>
+</canvas>
 
         <h3 id="svg">SVG Példa</h3>
         <svg width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
