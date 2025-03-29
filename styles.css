@@ -51,4 +51,64 @@
             padding: 10px;
             margin-top: 20px;
         }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+        cursor: pointer;
+    }
+    th {
+        background: #666;
+        color: white;
+    }
+    th:hover {
+        background: #555;
+    }
+    input {
+        margin: 5px;
+        padding: 5px;
+    }
+    #modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        box-shadow: 0px 0px 10px gray;
+        text-align: center;
+    }
+    #modal input {
+        display: block;
+        margin: 5px auto;
+    }
  
+  #div1, #div2 {
+  /*float: left;*/
+  width: 100px;
+  height: 35px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+}
+#chartTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#chartTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#chartTable tr:hover {
+    background: lightblue;
+}

@@ -149,7 +149,7 @@ function bigLoop(){
   var j = i;
   alert("Kész " + j + "ciklus" );
   }
-  function sayHello(){
+function sayHello(){
   alert("Szép Napot!" );
   }
 //web worker API vége

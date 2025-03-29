@@ -7,13 +7,14 @@
         
         <h3 id="workers">Web Workers API</h3>
         
-        <input type="button" onclick="bigLoop();" value="Véletlen ciklus generator">
+        <input type="button" onclick="bigLoop();" value="100000 ciklus generator">
         <input type="button" onclick="sayHello();" value="Hello funkció">
 
 
 	<h3 id="sse">Server-Sent Events</h3>
+	<h4 id="ssea">php megengedett</h4>
         <script>
-                const x = document.getElementById("result");
+        const x = document.getElementById("result");
                 // Check browser support for SSE
                 if(typeof(EventSource) !== "undefined") {
                   var source = new EventSource("demo_sse.php");
@@ -23,13 +24,36 @@
                 } else {
                   x.innerHTML = "Sorry, no support for server-sent events.";
                 }
-                </script> 
+         </script> 
         
         <h3 id="geo">Geolocation API</h3>
+        <h4 id="geoa">Megjegyzés: A földrajzi helymeghatározási API csak biztonságos környezetben, például HTTPS alatt érhető el.</h4>
 	<p>A gombra kattinva megtudhatja a koordinátáit</p>
 
 	<button onclick="getLocation()">Koordinaták</button>
 	<!-- https://www.w3schools.com/html/html5_draganddrop.asp --> 
+	<p id="geoloc"></p>
+
+<script>
+const x = document.getElementById("geoloc");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, error);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function success(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude +
+  "<br>Longitude: " + position.coords.longitude;
+}
+
+function error() {
+  alert("Sorry, no position available.");
+}
+</script>
         
 
 	<h3 id="dragdrop">Drag and Drop API</h3>
@@ -40,26 +64,13 @@
 <img id="img1" src="gamf_ikon.gif" draggable="true" ondragstart="dragstartHandler(event)" width="88" height="31">
 </div>
 
-<div id="div2" ondrop="dropHandler(event)"   ondragover="dragoverHandler(event)"></div><br>
+<div id="div2" ondrop="dropHandler(event)"   ondragover="dragoverHandler(event)"></div>
 
 <h3 id="cansas">Cansas API</h3>
-<p>Megkéne jelenie egy piros vonalnak a téglalapban </p>
-<canvas id="myCanvas" width="300" height="150" style="border:1px solid grey" onload="cansas();">
-	<script>
-function cansas(){
-const c = document.getElementById("myCanvas");
-const ctx = c.getContext("2d");
-ctx.beginPath();
-ctx.moveTo(20, 20);
-ctx.lineTo(20, 100);
-ctx.lineTo(70, 100);
-ctx.strokeStyle = "red";
-ctx.stroke();
-}
-	</script>
-</canvas>
+<p><button onclick="myCanvas()">A gombra kattintva megjelenik egy piros vonal a téglalapban</button></p>
+<canvas id="myCanvas" width="300" height="150" style="border:1px solid grey"></canvas>
 
-        <h3 id="svg">SVG Példa</h3>
+        <h3 id="svg">SVG</h3>
         <svg width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="50" style="fill:red;">
                   <animate
