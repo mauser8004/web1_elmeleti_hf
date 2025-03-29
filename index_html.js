@@ -15,6 +15,21 @@
         document.addEventListener("DOMContentLoaded", () => {
             loadContent('home.html', document.querySelector("nav ul li a"));
         });
+        function loadContent(url, element) {
+          fetch(url)
+              .then(response => response.text())
+              .then(html => {
+                  document.getElementById("content").innerHTML = html;
+                  
+                  // 100ms késleltetés, hogy biztosan betöltődjön a DOM
+                  setTimeout(() => {
+                      console.log(`Betöltve: ${url}`);
+                      if (url === "chart.html") {
+                          initChartTable(); // Csak akkor futtatjuk, ha a ChartJS oldal töltődött be
+                      }
+                  }, 100);
+              });
+      }
 ////////table.html hez a CRUD
     let tableData = [
         { name: "Gipsz Jakab", age: 30, city: "Budapest", email: "jakab@example.com" }
