@@ -1,108 +1,249 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-
-function App() {
-  return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li><Link to="/torpedo">Torpedó</Link></li>
-            <li><Link to="/memory-game">Memóriajáték</Link></li>
-          </ul>
-        </nav>
-        <Routes>
-          <Route path="/torpedo" element={<Torpedo />} />
-          <Route path="/memory-game" element={<MemoryGame />} />
-        </Routes>
-      </div>
-    </Router>
-  );
-}
-
-export default App;
-
-// Torpedo Component
-function Torpedo() {
-  const gridSize = 5;
-  const [grid, setGrid] = useState(
-    Array(gridSize).fill(null).map(() => Array(gridSize).fill("~"))
-  );
-  const [message, setMessage] = useState("Lőjj egyet!");
-  const shipPosition = { row: Math.floor(Math.random() * gridSize), col: Math.floor(Math.random() * gridSize) };
-
-  const handleShot = (row, col) => {
-    if (row === shipPosition.row && col === shipPosition.col) {
-      setMessage("Talált! Süllyedt!");
-      setGrid(grid.map((r, ri) => r.map((c, ci) => (ri === row && ci === col ? "X" : c))));
-    } else {
-      setMessage("Mellé! Próbáld újra.");
-      setGrid(grid.map((r, ri) => r.map((c, ci) => (ri === row && ci === col ? "O" : c))));
-    }
-  };
-
-  return (
-    <div>
-      <h2>Torpedó Játék</h2>
-      <p>{message}</p>
-      <div style={{ display: "grid", gridTemplateColumns: `repeat(${gridSize}, 50px)`, gap: "5px" }}>
-        {grid.map((row, rowIndex) =>
-          row.map((cell, colIndex) => (
-            <button
-              key={`${rowIndex}-${colIndex}`}
-              onClick={() => handleShot(rowIndex, colIndex)}
-              style={{ width: "50px", height: "50px" }}
-            >
-              {cell}
-            </button>
-          ))
-        )}
-      </div>
-    </div>
-  );
-}
-
-// Memory Game Component
-function MemoryGame() {
-  const cards = ["🐱", "🐶", "🐰", "🐹", "🦊", "🐱", "🐶", "🐰", "🐹", "🦊"];
-  const shuffledCards = [...cards].sort(() => Math.random() - 0.5);
-  const [revealed, setRevealed] = useState(Array(cards.length).fill(false));
-  const [selected, setSelected] = useState([]);
-
-  const handleCardClick = (index) => {
-    if (revealed[index] || selected.length === 2) return;
-    
-    const newSelected = [...selected, index];
-    setSelected(newSelected);
-    
-    if (newSelected.length === 2) {
-      setTimeout(() => {
-        if (shuffledCards[newSelected[0]] === shuffledCards[newSelected[1]]) {
-          const newRevealed = [...revealed];
-          newRevealed[newSelected[0]] = true;
-          newRevealed[newSelected[1]] = true;
-          setRevealed(newRevealed);
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React SPA - Időjárás & Filmkereső</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        setSelected([]);
-      }, 1000);
-    }
-  };
+        nav {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        nav button {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        nav button.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .app-container {
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .weather-card, .movie-card {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        input {
+            padding: 8px;
+            margin-right: 10px;
+            width: 200px;
+        }
+        button {
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
 
-  return (
-    <div>
-      <h2>Memóriajáték</h2>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 50px)", gap: "5px" }}>
-        {shuffledCards.map((card, index) => (
-          <button
-            key={index}
-            onClick={() => handleCardClick(index)}
-            style={{ width: "50px", height: "50px", fontSize: "24px" }}
-          >
-            {revealed[index] || selected.includes(index) ? card : "❓"}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
+    <script type="text/babel">
+        // Itt lesz a React kódunk
+        const { useState } = React;
 
+        function App() {
+            const [activeTab, setActiveTab] = useState('weather');
+
+            return (
+                <div>
+                    <h1>React SPA Alkalmazás</h1>
+                    <nav>
+                        <button 
+                            className={activeTab === 'weather' ? 'active' : ''}
+                            onClick={() => setActiveTab('weather')}
+                        >
+                            Időjárás
+                        </button>
+                        <button 
+                            className={activeTab === 'movies' ? 'active' : ''}
+                            onClick={() => setActiveTab('movies')}
+                        >
+                            Filmkereső
+                        </button>
+                    </nav>
+                    
+                    <div className="app-container">
+                        {activeTab === 'weather' ? <WeatherApp /> : <MovieApp />}
+                    </div>
+                </div>
+            );
+        }
+
+        function WeatherApp() {
+            const [city, setCity] = useState('');
+            const [weatherData, setWeatherData] = useState(null);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState('');
+
+            const API_KEY = 'YOUR_OPENWEATHER_API_KEY'; // Cseréld le a saját API kulcsodra
+
+            const fetchWeather = async () => {
+                if (!city.trim()) {
+                    setError('Kérjük, adj meg egy városnevet!');
+                    return;
+                }
+
+                setLoading(true);
+                setError('');
+                
+                try {
+                    const response = await fetch(
+                        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}&lang=hu`
+                    );
+                    
+                    if (!response.ok) {
+                        throw new Error('Város nem található');
+                    }
+                    
+                    const data = await response.json();
+                    setWeatherData(data);
+                } catch (err) {
+                    setError(err.message);
+                    setWeatherData(null);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            return (
+                <div>
+                    <h2>Időjárás Lekérdezés</h2>
+                    <div>
+                        <input
+                            type="text"
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                            placeholder="Add meg a város nevét"
+                        />
+                        <button onClick={fetchWeather} disabled={loading}>
+                            {loading ? 'Betöltés...' : 'Lekérdez'}
+                        </button>
+                    </div>
+                    
+                    {error && <p className="error">{error}</p>}
+                    
+                    {weatherData && (
+                        <div className="weather-card">
+                            <h3>{weatherData.name} időjárása</h3>
+                            <p>Hőmérséklet: {Math.round(weatherData.main.temp)}°C</p>
+                            <p>Érzés: {Math.round(weatherData.main.feels_like)}°C</p>
+                            <p>Páratartalom: {weatherData.main.humidity}%</p>
+                            <p>Szél: {weatherData.wind.speed} m/s</p>
+                            <p>
+                                Időjárás: {weatherData.weather[0].description}
+                                <img 
+                                    src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`} 
+                                    alt={weatherData.weather[0].description}
+                                />
+                            </p>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function MovieApp() {
+            const [query, setQuery] = useState('');
+            const [movies, setMovies] = useState([]);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState('');
+
+            const API_KEY = 'YOUR_OMDB_API_KEY'; // Cseréld le a saját API kulcsodra
+
+            const searchMovies = async () => {
+                if (!query.trim()) {
+                    setError('Kérjük, adj meg egy filmet!');
+                    return;
+                }
+
+                setLoading(true);
+                setError('');
+                
+                try {
+                    const response = await fetch(
+                        `https://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`
+                    );
+                    
+                    const data = await response.json();
+                    
+                    if (data.Response === 'False') {
+                        throw new Error(data.Error || 'Filmek nem találhatóak');
+                    }
+                    
+                    setMovies(data.Search);
+                } catch (err) {
+                    setError(err.message);
+                    setMovies([]);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            return (
+                <div>
+                    <h2>Filmkereső</h2>
+                    <div>
+                        <input
+                            type="text"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="Keresett film címe"
+                        />
+                        <button onClick={searchMovies} disabled={loading}>
+                            {loading ? 'Keresés...' : 'Keresés'}
+                        </button>
+                    </div>
+                    
+                    {error && <p className="error">{error}</p>}
+                    
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+                        {movies.map(movie => (
+                            <div key={movie.imdbID} className="movie-card">
+                                <h3>{movie.Title}</h3>
+                                <p>Év: {movie.Year}</p>
+                                <p>Típus: {movie.Type}</p>
+                                {movie.Poster !== 'N/A' && (
+                                    <img src={movie.Poster} alt={movie.Title} style={{ maxWidth: '100px' }} />
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
