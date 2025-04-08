@@ -1,4 +1,4 @@
-code="F6BHFEabc123";
+code="NEPTUNKODabc12332";
 url="http://gamf.nhely.hu/ajax2/";
 
 async function read() {
