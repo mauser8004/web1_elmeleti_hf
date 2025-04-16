@@ -4,4 +4,5 @@ header('Cache-Control: no-cache');
 $time = date('r');
 echo "data: The server time is: {$time}\n\n";
 flush();
+echo "teszt";
 ?>

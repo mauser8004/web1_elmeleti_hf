@@ -142,19 +142,33 @@ function sayHello(){
   alert("Szép Napot!" );
   }
 //web worker API vége
-////sse
-                const x = document.getElementById("result");
-                // Check browser support for SSE
-                if(typeof(EventSource) !== "undefined") {
-                  var source = new EventSource("demo_sse.php");
-                  source.onmessage = function(event) {
-                    x.innerHTML += event.data + "<br>";
-                  };
-                } else {
-                  x.innerHTML = "Sorry, no support for server-sent events.";
-                }
 
-//sse vege
+///SSE
+/*var xC = document.getElementById("result2");
+// Check browser support for SSE
+if(typeof(EventSource) !== "undefined") {
+  var source = new EventSource("demo_sse.php");
+  source.onmessage = function(event) {
+    xC.innerHTML += event.data + "<br>";
+  };
+} else {
+  xC.innerHTML = "Sorry, no support for server-sent events.";
+}*/
+///GEO api
+
+var xB = document.getElementById("demoA");
+function getLocation2() {
+if (navigator.geolocation)
+navigator.geolocation.getCurrentPosition(showPosition);
+else
+xB.innerHTML = "Geolocation is not supported by this browser.";
+}
+function showPosition(position) {
+xB.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " +
+position.coords.longitude;
+}
+
+
 //DRAG DROP API
 
 function dragstartHandler(ev) {

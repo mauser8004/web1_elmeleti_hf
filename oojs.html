@@ -49,20 +49,23 @@
 <body>
     <h1>Éttermi Menü</h1>
     <h2>Kód</h2>
-    <p>A kód magyarázata:
+    <p>A kód magyarázata:<br>
 
-    MenuItem osztály: Ez az alaposztály, ami tartalmazza az ételek és italok közös tulajdonságait (név, ár, leírás) és a renderelés alapvető funkcióit.
+    MenuItem osztály: Ez az alaposztály, ami tartalmazza az ételek és italok közös tulajdonságait (név, ár, leírás) és a renderelés alapvető funkcióit<br>.
 
     FoodItem osztály: A MenuItem-ből származik (extends), és bővíti azt allergének tárolásával és megjelenítésével. A super kulcsszóval hívja meg a szülőosztály konstruktorát és render metódusát.
-
+    <br>
     DrinkItem osztály: Szintén a MenuItem-ből származik, és bővíti azt ital méret információval.
-
+    <br>
     Menu osztály: Kezeli a menüelemek gyűjteményét és a teljes menü megjelenítését. A document.body.appendChild helyett itt egy meglévő konténerbe (menu-container) helyezzük az elemeket.
-
+    <br>
     Példányosítás: Létrehozunk egy menüt, hozzáadunk néhány ételt és italt, majd meghívjuk a render metódust a megjelenítéshez.
-
+    <br>
 A kód jól szemlélteti az objektumorientált JavaScript alapelveit: öröklés, metódusok, konstruktorok használatát, valamint a DOM manipulációt.</p>
+
+
     <div id="menu-container"></div>
+
 
     <script>
         // Alap MenuItem osztály

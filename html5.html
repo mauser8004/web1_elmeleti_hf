@@ -16,47 +16,28 @@
 	<fieldset>
 	<h3 id="sse">Server-Sent Events</h3>
 	<h4 id="ssea">php megengedett</h4>
-	<div id="result"></div>
-	<div id="result"></div>
-<script>
-if(typeof(EventSource) !== "undefined") {
-var source = new EventSource("demo_sse.php");
-source.onmessage = function(event) {
-document.getElementById("result").innerHTML += event.data + "<br>";
-};
-} else
-document.getElementById("result").innerHTML = "Sorry, your browser does not
-support server-sent events...";
-</script>
+	<div id="result2"></div>
+
+	<script>
+	const k = document.getElementById("result2");
+	if(typeof(EventSource) !== "undefined") {
+  	var source = new EventSource("/demo_sse.php");
+  	source.onmessage = function(event) {
+    	k.innerHTML += event.data + "<br>";
+  	};
+	} else {
+  	k.innerHTML = "Sorry, no support for server-sent events.";
+	}
+	</script>
         </fieldset>
 	<fieldset>
         <h3 id="geo">Geolocation API</h3>
         <h4 id="geoa">Megjegyzés: A földrajzi helymeghatározási API csak biztonságos környezetben, például HTTPS alatt érhető el.</h4>
+	<h4>F12 console üzenete : A helymeghatározási kérés csak biztonságos környezetben teljesíthető.<h/4>
 	<p>A gombra kattinva megtudhatja a koordinátáit</p>
 
-	<button onclick="getLocation()">Koordinaták</button>
-	<p id="geoloc"></p>
-
-<script>
-const x = document.getElementById("geoloc");
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(success, error);
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
-function success(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude;
-}
-
-function error() {
-  alert("Sorry, no position available.");
-}
-</script>
+	<button onclick="getLocation2()">Koordinaták</button>
+<p id="demoA"></p>
         
 
 	<!-- https://www.w3schools.com/html/html5_draganddrop.asp --> 
