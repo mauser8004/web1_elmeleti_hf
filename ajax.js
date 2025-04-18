@@ -25,7 +25,7 @@ async function read() {
     let heights = [];  // Array to store the height values for analysis
 
     for (let i = 0; i < list.length; i++) {
-        str += "<tr><td>" + list[i].id + "</td><td>" + list[i].name + "</td><td>" + list[i].height + "</td><td>" + list[i].weight + "</td><td>";
+        str += "<tr><td>" + list[i].id + "</td><td>" + list[i].name + "</td><td>" + list[i].height + "</td><td>" + list[i].weight + "</td></tr>";
         heights.push(parseInt(list[i].height));  // Add height to the array for analysis
     }
 
