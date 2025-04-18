@@ -107,7 +107,7 @@ async function update() {
             body: "code=" + code + "&op=update&id=" + id + "&name=" + nameStr + "&height=" + height + "&weight=" + weight
         });
         let data = await response.text();
-        document.getElementById("updateResult").innerHTML = data > 0 ? "Update successful!" : "Update NOT successful!";
+        document.getElementById("updateResult").innerHTML = data > 0 ? "Módosítás sikeres!" : "Módósítás NEM sikerült!";
         document.getElementById("idUpd").value = "";
         document.getElementById("name2").value = "";
         document.getElementById("height2").value = "";
@@ -130,7 +130,7 @@ async function deleteF() {
             body: "code=" + code + "&op=delete&id=" + id
         });
         let data = await response.text();
-        document.getElementById("deleteResult").innerHTML = data > 0 ? "Delete successful!" : "Delete NOT successful!";
+        document.getElementById("deleteResult").innerHTML = data > 0 ? "Törlés sikeres!" : "Törlés sikertelen!";
         document.getElementById("idDel").value = "";
         read();
     } else {
