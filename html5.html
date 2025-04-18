@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web-programozás-1</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Web-programozás-1 Előadás Házi feladat</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="table.html">Táblázat</a></li>
+            <li><a href="html5.html" class="active">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
+            <li><a href="react.html">React</a></li>
+        </ul>
+    </nav>
+    <aside>
+        <p>Oldalsáv(aside) tartalmára nem találtam információt</p>
+    </aside>
+    <div id="content">
+	    	 <fieldset>
+        <h2>HTML5 API Példák</h2>
+
+        <h3 id="storage">Web Storage</h3>
+        <button onclick="localStorage.setItem('ezazitemneve', 'Jó Napot!')">Tárolás</button>
+        <button onclick="alert(localStorage.getItem('ezazitemneve'))">Kiolvasás</button>
+	<script>
+	</script>
+        </fieldset>
+	<fieldset>
+        <h3 id="workers">Web Workers API</h3>
+
+        <input type="button" onclick="bigLoop();" value="100000 ciklus generator">
+        <input type="button" onclick="sayHello();" value="Hello funkció">
+	<script>
+		function bigLoop(){
+  for (var i = 0; i <= 100000; i += 1)
+  var j = i;
+  alert("Kész " + j + "ciklus" );
+  }
+function sayHello(){
+  alert("Szép Napot!" );
+  }
+	</script>
+
+	</fieldset>
+	<fieldset>
+	<h3 id="sse">Server-Sent Events</h3>
+	<h4 id="ssea">php megengedett</h4>
+	<div id="result2"></div>
+	<script>
+
+
+	const k = document.getElementById("result2");
+
+
+	if(typeof(EventSource) !== "undefined") {
+
+
+  	var source = new EventSource("demo_sse.php");
+
+
+  	source.onmessage = function(event) {
+
+
+    	k.innerHTML += event.data + "<br>";
+
+
+  	};
+
+
+	} else {
+
+
+  	k.innerHTML = "Sorry, no support for server-sent events.";
+
+
+	}
+
+
+	</script>
+        </fieldset>
+	<fieldset>
+        <h3 id="geo">Geolocation API</h3>
+        <h4 id="geoa">Megjegyzés: A földrajzi helymeghatározási API csak biztonságos környezetben, például HTTPS alatt érhető el.</h4>
+	<h4>F12 console üzenete : A helymeghatározási kérés csak biztonságos környezetben teljesíthető.<h/4>
+	<p>A gombra kattinva megtudhatja a koordinátáit</p>
+
+	<button onclick="getLocation2()">Koordinaták</button>
+<p id="demoA"></p>
+
+
+	<!-- https://www.w3schools.com/html/html5_draganddrop.asp -->
+	</fieldset>
+	<fieldset>
+	<h3 id="dragdrop">Drag and Drop API</h3>
+        <p>Helyezze a kis képet az egyik dobozbol a másikba</p>
+
+
+<div id="div1" ondrop="dropHandler(event)"   ondragover="dragoverHandler(event)">
+<img id="img1" src="gamf_ikon.gif" draggable="true" ondragstart="dragstartHandler(event)" width="88" height="31">
+</div>
+
+<div id="div2" ondrop="dropHandler(event)"   ondragover="dragoverHandler(event)"></div>
+<script>
+	function dragstartHandler(ev) {
+  ev.dataTransfer.setData("ikongamf", ev.target.id);
+}
+
+function dragoverHandler(ev) {
+  ev.preventDefault();
+}
+
+function dropHandler(ev) {
+  ev.preventDefault();
+  const data = ev.dataTransfer.getData("ikongamf");
+  ev.target.appendChild(document.getElementById(data));
+}
+</script>
+
+	</fieldset>
+	<fieldset>
+<h3 id="cansas">Cansas API</h3>
+<p><button onclick="myCanvas()">A gombra kattintva megjelenik egy piros vonal a téglalapban</button></p>
+
+
+<canvas id="myCanvas" width="300" height="150" style="border:1px solid grey"></canvas>
+
+	</fieldset>
+	<fieldset>
+        <h3 id="svg">SVG</h3>
+        <svg width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="50" style="fill:red;">
+                  <animate
+                    attributeName="cx"
+                    begin="0s"
+                    dur="10s"
+                    from="50"
+                    to="100%"
+                    repeatCount="indefinite" />
+                </circle>
+                Sorry, your browser does not support inline SVG.
+              </svg>
+	      <script>
+	function myCanvas() {
+const c = document.getElementById("myCanvas");
+const ctx = c.getContext("2d");
+ctx.beginPath();
+ctx.moveTo(20, 20);
+ctx.lineTo(20, 100);
+ctx.lineTo(70, 100);
+ctx.strokeStyle = "red";
+ctx.stroke();
+}
+		</script>
+	      </fieldset>
+
+    </div>
+    <footer>
+        <p>Készítette: Barcza Mónika - VCVIAB és  Erdődi Zoltán - F6BHFE</p>
+    </footer>
+</body>
+</html>
+
