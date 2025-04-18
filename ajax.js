@@ -46,12 +46,24 @@ async function read() {
     document.getElementById("readDiv").innerHTML = str;
 }
 
-
 async function create() {
     let nameStr = document.getElementById("name1").value;
-    let height = document.getElementById("height1").value;
-    let weight = document.getElementById("weight1").value;
-    if (nameStr.length > 0 && nameStr.length <= 30 && height.length > 1 && height.length <= 250 && weight.length > 1 && weight.length <= 210) {
+    let heightInput = document.getElementById("height1").value;
+    let weightInput = document.getElementById("weight1").value;
+
+    // Numerikus értékek konvertálása és ellenőrzése
+    let height = parseInt(heightInput);
+    let weight = parseInt(weightInput);
+
+    // Validáció
+    if (
+        nameStr.length > 0 && 
+        nameStr.length <= 30 && 
+        !isNaN(height) && 
+        !isNaN(weight) &&
+        height >= 50 && height <= 250 &&  // Ésszerű magasság tartomány (cm)
+        weight >= 10 && weight <= 210     // Ésszerű súly tartomány (kg)
+    ) {
         let response = await fetch(url, {
             method: 'post',
             cache: 'no-cache',
@@ -67,7 +79,7 @@ async function create() {
         document.getElementById("weight1").value = "";
         read();
     } else {
-        document.getElementById("createResult").innerHTML = "Validation error!!";
+        document.getElementById("createResult").innerHTML = "Nem megfelelő adatbevitel! Ellenőrizni kell a bevitt adatokat (height: 50-250 cm, weight: 10-210 kg).";
     }
 }
 
