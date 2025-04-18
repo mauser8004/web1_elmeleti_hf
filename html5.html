@@ -16,19 +16,17 @@
 	<fieldset>
 	<h3 id="sse">Server-Sent Events</h3>
 	<h4 id="ssea">php megengedett</h4>
-	<div id="result2"></div>
-
-	<script>
-	const k = document.getElementById("result2");
-	if(typeof(EventSource) !== "undefined") {
-  	var source = new EventSource("/demo_sse.php");
-  	source.onmessage = function(event) {
-    	k.innerHTML += event.data + "<br>";
-  	};
-	} else {
-  	k.innerHTML = "Sorry, no support for server-sent events.";
-	}
-	</script>
+	<div id="sseOutput">Várakozás a szerver üzenetére...</div>
+    <script>
+        if (typeof(EventSource) !== "undefined") {
+            const source = new EventSource("demo_sse.php");
+            source.onmessage = function(event) {
+                document.getElementById("sseOutput").textContent = `Szerver ideje: ${event.data}`;
+            };
+        } else {
+            document.getElementById("sseOutput").textContent = "A böngésződ nem támogatja a Server-Sent Events-t.";
+        }
+    </script>
         </fieldset>
 	<fieldset>
         <h3 id="geo">Geolocation API</h3>
