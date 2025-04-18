@@ -38,9 +38,9 @@ async function read() {
         let max = Math.max(...heights);
 
         str += "<h3>Height Adatok</h3>";
-        str += "<p>heights sum: " + sum + "</p>";
-        str += "<p>height avg: " + average.toFixed(2) + "</p>";
-        str += "<p>height max: " + max + "</p>";
+        str += "<p>heights összeg: " + sum + "</p>";
+        str += "<p>height átlag: " + average.toFixed(2) + "</p>";
+        str += "<p>height legnagyobb: " + max + "</p>";
     }
 
     document.getElementById("readDiv").innerHTML = str;
