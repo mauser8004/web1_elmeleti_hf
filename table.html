@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web-programozás-1</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Web-programozás-1 Előadás Házi feladat</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="table.html" class="active">Táblázat</a></li>
+            <li><a href="html5.html">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
+            <li><a href="react.html">React</a></li>
+        </ul>
+    </nav>
+    <aside>
+        <p>Oldalsáv(aside) tartalmára nem találtam információt</p>
+    </aside>
+    <div id="content">
+	    <h2>Táblázat CRUD  JavaScript feldolgozással</h2>
+<h3>Új sor felvétele</h3>
+<button onclick="openModal()">Új sor hozzáadása</button>
+
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th onclick="sortTable(0)">Név</th>
+            <th onclick="sortTable(1)">Életkor</th>
+            <th onclick="sortTable(2)">Város</th>
+            <th onclick="sortTable(3)">Email</th>
+            <th>Műveletek</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<script>
+	    let tableData = [
+        { name: "Gipsz Jakab", age: 30, city: "Budapest", email: "jakab@example.com" }
+    ];
+    let editIndex = null;
+
+    function renderTable() {
+        let tbody = document.querySelector("#dataTable tbody");
+        tbody.innerHTML = "";
+        tableData.forEach((row, index) => {
+            let tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${row.name}</td>
+                <td>${row.age}</td>
+                <td>${row.city}</td>
+                <td>${row.email}</td>
+                <td>
+                    <button onclick="editRow(${index})">Szerkesztés</button>
+                    <button onclick="deleteRow(${index})">Törlés</button>
+                </td>`;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function openModal(index = null) {
+        document.getElementById("modal").style.display = "block";
+        document.getElementById("modalTitle").innerText = index !== null ? "Sor szerkesztése" : "Új sor hozzáadása";
+
+        if (index !== null) {
+            let row = tableData[index];
+            document.getElementById("nameInput").value = row.name;
+            document.getElementById("ageInput").value = row.age;
+            document.getElementById("cityInput").value = row.city;
+            document.getElementById("emailInput").value = row.email;
+            editIndex = index;
+        } else {
+            document.getElementById("nameInput").value = "";
+            document.getElementById("ageInput").value = "";
+            document.getElementById("cityInput").value = "";
+            document.getElementById("emailInput").value = "";
+            editIndex = null;
+        }
+    }
+
+    function closeModal() {
+        document.getElementById("modal").style.display = "none";
+    }
+
+    function saveRow() {
+        let name = document.getElementById("nameInput").value.trim();
+        let age = document.getElementById("ageInput").value.trim();
+        let city = document.getElementById("cityInput").value.trim();
+        let email = document.getElementById("emailInput").value.trim();
+
+        if (!name || !age || !city || !email) {
+            alert("Minden mező kitöltése kötelező!");
+            return;
+        }
+
+        if (name.length < 3 || city.length < 2 || age < 1 || age > 120 || email.length < 5) {
+            alert("Érvénytelen adatok!");
+            return;
+        }
+
+        let newRow = { name, age, city, email };
+
+        if (editIndex !== null) {
+            tableData[editIndex] = newRow;
+        } else {
+            tableData.push(newRow);
+        }
+
+        renderTable();
+        closeModal();
+    }
+
+    function editRow(index) {
+        openModal(index);
+    }
+
+    function deleteRow(index) {
+        if (confirm("Biztosan törölni szeretnéd ezt a sort?")) {
+            tableData.splice(index, 1);
+            renderTable();
+        }
+    }
+
+    function sortTable(columnIndex) {
+        let keys = ["name", "age", "city", "email"];
+        let key = keys[columnIndex];
+        let isNumeric = columnIndex === 1;
+
+        tableData.sort((a, b) => {
+            let x = a[key].toString().toLowerCase();
+            let y = b[key].toString().toLowerCase();
+            return isNumeric ? x - y : x.localeCompare(y);
+        });
+
+        renderTable();
+    }
+
+    function filterTable() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let tbody = document.querySelector("#dataTable tbody");
+
+        Array.from(tbody.rows).forEach(row => {
+            let showRow = Array.from(row.cells).slice(0, -1).some(cell => cell.innerText.toLowerCase().includes(input));
+            row.style.display = showRow ? "" : "none";
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", renderTable);
+</script>
+<!-- Modal ablak -->
+<div id="modal" style="display:none;">
+    <h3 id="modalTitle">Új sor hozzáadása</h3>
+    <label>Név: <input type="text" id="nameInput" required minlength="3"></label><br>
+    <label>Életkor: <input type="number" id="ageInput" required min="1" max="120"></label><br>
+    <label>Város: <input type="text" id="cityInput" required minlength="2"></label><br>
+    <label>Email: <input type="email" id="emailInput" required></label><br>
+    <button onclick="saveRow()">Mentés</button>
+    <button onclick="closeModal()">Mégse</button>
+</div>
+<h3>Keresés</h3>
+<input type="text" id="searchInput" placeholder="Keresés..." onkeyup="filterTable()">
+
+    </div>
+    <footer>
+        <p>Készítette: Barcza Mónika - VCVIAB és  Erdődi Zoltán - F6BHFE</p>
+    </footer>
+</body>
+</html>
+

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web-programozás-1</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="ajax.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Web-programozás-1 Előadás Házi feladat</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Főoldal</a></li>
+            <li><a href="table.html">Táblázat</a></li>
+            <li><a href="html5.html">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html" class="active">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
+            <li><a href="react.html">React</a></li>
+        </ul>
+    </nav>
+    <aside>
+        <p>Oldalsáv(aside) tartalmára nem találtam információt</p>
+    </aside>
+    <div id="content">
+	    <div id = 'code'></div>
+<div id = 'readDiv'></div>
+<div id = 'createDiv'>
+<h1>Create</h1>
+Name (required, max 30 char ): <input id="name1" type="text"></input><br>
+Height (required, 1-250): <input id="height1" type="text"></input><br>
+Weight (required, 1-210): <input id="weight1" type="text"></input><br>
+<button type="submit" onclick="create();">Create</button><br>
+<div id = 'createResult'></div>
+</div>
+<div id = 'updateDiv'>
+<h1>Update</h1>
+ID (required): <input id="idUpd" type="text"></input><br>
+<button type="submit" onclick="getDataForId();">getDataForId</button><br>
+Name (required, max 30 char): <input id="name2" type="text"></input><br>
+Height (required, 1-250): <input id="height2" type="text"></input><br>
+Weight (required, 1-210): <input id="weight2" type="text"></input><br>
+<button type="submit" onclick="update();">Update</button><br>
+<div id = 'updateResult'></div>
+</div>
+<div id = 'deleteDiv'>
+<h1>Delete</h1>
+ID (required): <input id="idDel" type="text"></input><br>
+<button type="submit" onclick="deleteF();">Delete</button><br>
+<div id = 'deleteResult'></div>
+
+    </div>
+    </div>
+    <footer>
+        <p>Készítette: Barcza Mónika - VCVIAB és  Erdődi Zoltán - F6BHFE</p>
+    </footer>
+</body>
+</html>
+
