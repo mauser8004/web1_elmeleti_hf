@@ -49,20 +49,46 @@
 <body>
     <h1>Éttermi Menü</h1>
     <h2>Kód</h2>
-    <p>A kód magyarázata:<br>
+<p><strong>A kód magyarázata:</strong></p>
 
-    MenuItem osztály: Ez az alaposztály, ami tartalmazza az ételek és italok közös tulajdonságait (név, ár, leírás) és a renderelés alapvető funkcióit<br>.
+<ul>
+  <li>
+    <strong>MenuItem osztály:</strong>  
+    Ez az alaposztály, ami tartalmazza az ételek és italok közös tulajdonságait 
+    (<em>név, ár, leírás</em>) és a megjelenítéshez szükséges alapvető funkciókat.
+  </li>
 
-    FoodItem osztály: A MenuItem-ből származik (extends), és bővíti azt allergének tárolásával és megjelenítésével. A super kulcsszóval hívja meg a szülőosztály konstruktorát és render metódusát.
-    <br>
-    DrinkItem osztály: Szintén a MenuItem-ből származik, és bővíti azt ital méret információval.
-    <br>
-    Menu osztály: Kezeli a menüelemek gyűjteményét és a teljes menü megjelenítését. A document.body.appendChild helyett itt egy meglévő konténerbe (menu-container) helyezzük az elemeket.
-    <br>
-    Példányosítás: Létrehozunk egy menüt, hozzáadunk néhány ételt és italt, majd meghívjuk a render metódust a megjelenítéshez.
-    <br>
-A kód jól szemlélteti az objektumorientált JavaScript alapelveit: öröklés, metódusok, konstruktorok használatát, valamint a DOM manipulációt.</p>
+  <li>
+    <strong>FoodItem osztály:</strong>  
+    A <code>MenuItem</code>-ből származik (<code>extends</code>), és kiegészül az 
+    <em>allergének</em> kezelésével. A <code>super</code> kulcsszóval hívja meg a 
+    szülőosztály konstruktorát és <code>render</code> metódusát.
+  </li>
 
+  <li>
+    <strong>DrinkItem osztály:</strong>  
+    Szintén a <code>MenuItem</code>-ből öröklődik, és tartalmaz egy további tulajdonságot:
+    az <em>ital méretét</em>.
+  </li>
+
+  <li>
+    <strong>Menu osztály:</strong>  
+    Kezeli a menüelemek listáját, és felelős azok megjelenítéséért. Ahelyett, hogy közvetlenül a 
+    <code>document.body.appendChild</code>-ot használnánk, az elemeket egy meglévő 
+    <code>menu-container</code> nevű DOM elembe helyezzük el.
+  </li>
+
+  <li>
+    <strong>Példányosítás:</strong>  
+    Létrehozunk egy új menüt, majd hozzáadunk néhány étel- és italobjektumot, végül meghívjuk a 
+    <code>render()</code> metódust, hogy megjelenítse a menüt a felhasználó számára.
+  </li>
+</ul>
+
+<p>
+  A kód jól szemlélteti az objektumorientált JavaScript alapelveit:
+  öröklés, metódusok, konstruktorok használatát, valamint a DOM manipulációt.
+</p>
 
     <div id="menu-container"></div>
 
